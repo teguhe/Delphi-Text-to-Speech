@@ -3,11 +3,20 @@ unit umain;
 interface
 
 uses
+
+  //additional
+  ComObj,
+
+  //autogenerate
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs;
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.Buttons;
 
 type
   TForm1 = class(TForm)
+    mmo1: TMemo;
+    btTTS: TBitBtn;
+    procedure FormCreate(Sender: TObject);
+    procedure btTTSClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -20,5 +29,23 @@ var
 implementation
 
 {$R *.dfm}
+
+procedure TForm1.btTTSClick(Sender: TObject);
+var
+  Voice: Variant;
+begin
+
+  Voice := CreateOLEObject('SAPI.SpVoice');
+  Voice.speak(mmo1.Text);
+
+end;
+
+procedure TForm1.FormCreate(Sender: TObject);
+begin
+
+  Position:=poScreenCenter;
+  mmo1.Clear;
+
+end;
 
 end.
